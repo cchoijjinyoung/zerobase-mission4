@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
+<style>
+    .div-banner {
+        width: 500px;
+        height: 130px;
+    }
+
+</style>
+<script>
+    $(document).ready(function(){
+        $('.bxslider').bxSlider();
+    });
+</script>
+<body>
+    <h1>메인 페이지 </h1>
+    <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+
+    <div class="div-banner">
+        <ul class="bxslider" th:if="${!list.isEmpty()}">
+            <li th:each="x:${list}">
+                <a th:href="${x.getLinkUrl()}"
+                   th:attr="target=${x.getOpenMethod() == 'NEW' ? '_blank' : '_self'}">
+                    <img th:src="@{${x.getUrlFilename()}}" th:alt="${x.getBannerName()}" class="banner-image"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
